@@ -3,7 +3,7 @@ const eventService = require("../services/event");
 
 // @desc create a event
 // @route POST /api/events/create
-// @access public
+// @access private
 const createEvent = asyncHandler(async (req, res) => {
   const {
     title,
@@ -16,7 +16,8 @@ const createEvent = asyncHandler(async (req, res) => {
     categories,
     capacity,
     eventLink,
-    eventStatus
+    eventStatus,
+    userId
   } = req.body;
   if (
     ! title ||
@@ -29,7 +30,8 @@ const createEvent = asyncHandler(async (req, res) => {
     ! categories ||
     ! capacity ||
     ! eventLink ||
-    ! eventStatus
+    ! eventStatus ||
+    ! userId
   ) {
     res.status(400);
     throw new Error("All fields are mandatory");
@@ -47,4 +49,19 @@ const createEvent = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createEvent };
+// @desc read events
+// @route GET /api/events/
+// @access private
+const getEvent = asyncHandler(async (req, res) => {
+  const userId = req.query.userId;
+  const eventData = await eventService.getEvent(userId);
+  if(eventData) {
+    console.log(eventData)
+    res.status(200).json(eventData);
+  } else {
+    res.json(false);
+  }
+ })
+
+
+module.exports = { createEvent, getEvent };

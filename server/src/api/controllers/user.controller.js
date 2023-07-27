@@ -37,7 +37,9 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error("All fields are mandatory !");
   }
   const user = await userService.userExist(email);
+  console.log("user -> ",user);
   if (user && (await bcrypt.compare(password, user.password))) {
+    console.log("Entered ...");
     const accessToken = jwt.sign(
       {
         user: {

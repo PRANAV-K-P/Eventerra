@@ -3,7 +3,7 @@ import axiosInstance from "../../../api/axiosInstance";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
-const SIGNUP_URL = "/users/signup";
+const SIGNUP_URL = "/users/register";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -27,13 +27,12 @@ const Signup = () => {
 
   const nameRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
   const emailRegex = /^\s*([a-zA-Z0-9]+@[a-z]+\.[a-z]{2,3})\s*$/i;
-  const phoneRegex = /^\d{10}$/;
   const passwordRegex =
     /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{6,16}$/;
 
   const handleSubmit = async () => {
     try {
-      if (!name || !email || !phone || !password || !confirmPassword) {
+      if (!name || !email || !password || !confirmPassword) {
         setError(true);
         return false;
       }
@@ -41,7 +40,6 @@ const Signup = () => {
       let response = await axiosInstance.post(SIGNUP_URL, {
         name,
         email,
-        phone,
         password,
       });
       if (response.data) {
@@ -57,7 +55,6 @@ const Signup = () => {
     if (
       !nameRegex.test(name) ||
       !emailRegex.test(email) ||
-      !phoneRegex.test(phone) ||
       !passwordRegex.test(password) ||
       password !== confirmPassword
     ) {
@@ -66,8 +63,8 @@ const Signup = () => {
     }
     return;
   };
-  return (
-    <div className="flex justify-center min-h-full w-full ">
+  return (  
+    <div className="flex justify-center w-full min-h-screen">
       <div className="w-full max-w-4xl h-4/5 rounded-lg shadow-lg overflow-hidden mt-28 mb-4">
         <div className="flex flex-row">
           <div className="bg-light-blue w-3/5 px-6 py-8 text-white">
@@ -232,21 +229,6 @@ const Signup = () => {
                   <Link to="/login">Login.</Link>
                 </span>
               </p>
-              <div className="mt-2 flex justify-center items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M20 10c0-.42-.04-.84-.1-1.25H10v2.5h5.57a2.68 2.68 0 0 1-1.16 1.75v1.45h1.88c1.1-1.02 1.74-2.5 1.74-4.15zm-10 2.5v-5h5.55c-.28.63-.77 1.16-1.37 1.5-.6.34-1.28.5-1.98.5-.7 0-1.38-.16-1.98-.5-.6-.34-1.09-.87-1.37-1.5H10v5z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <p>Sign up with Google</p>
-              </div>
             </div>
           </div>
         </div>

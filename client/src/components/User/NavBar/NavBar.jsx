@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const NavBar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const auth = false; // localStorage.getItem("user");
+  const auth = localStorage.getItem("user");
 
   const logout = () => {
     // localStorage.clear();
@@ -14,7 +14,7 @@ const NavBar = () => {
     navigate("/");
   };
   return (
-    <header className="border-none py-6 shadow-xl bg-blue-300">
+    <header className="border-none py-6 shadow-xl bg-Bri-blue">
       <div className="flex item-center justify-between xl:max-w-11xl xl:mx-auto max-w-full px-[8%] flex-wrap w-full ">
         <h1 className="text-5xl font-bold text-dark-red w-70">
           <Link to="/">Eventerra</Link>
@@ -30,32 +30,36 @@ const NavBar = () => {
             open ? "block" : "hidden"
           } w-full lg:flex lg:items-center lg:w-auto `}
         >
-          <ul className="text-base text-gray-700 lg:flex lg:justify-between">
+          <ul className="text-xl text-white lg:flex lg:justify-between">
             <li className="group">
               <span className="lg:px-5 py-2 block hover:text-blue-700 font-bold">
-                Services
+                Home
               </span>
             </li>
             <li>
               <Link
                 className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
-                to="/connect"
+                to="/events"
               >
-                Events
+                Upcoming events
               </Link>
             </li>
-            <li>
-              <Link
-                className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
-                to="/about"
-              >
-                About
-              </Link>
-            </li>
+
             {auth ? (
               <>
+                <li>
+                  <Link
+                    className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
+                    to="/myEvents"
+                  >
+                    My Events
+                  </Link>
+                </li>
                 <li className="group">
-                  <Link className="block" to="/profile">
+                  <Link
+                    className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
+                    to="/profile"
+                  >
                     Profile
                   </Link>
                 </li>

@@ -12,4 +12,11 @@ module.exports = {
     }
     return false;
   },
+  getEvent: async (userId) => {
+    const events = await Event.find({userId});
+    if(events.length !== 0) {
+      return events;
+    } 
+    return false;
+  }
 };

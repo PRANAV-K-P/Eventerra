@@ -31,15 +31,12 @@ const Login = () => {
         setError(true);
         return false;
       }
-
       let response = await axiosInstance.post(LOGIN_URL, { email, password });
       if (response.data.auth) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("userToken", JSON.stringify(response.data.auth));
-
           navigate("/");
-
-      }F
+      }
     } catch (err) {
       setServerError(true);
       setMessage(err.response.data.message);
@@ -47,10 +44,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-full w-full">
+    <div className="flex justify-center w-full min-h-screen">
       <div className="w-full max-w-4xl h-4/5 rounded-lg shadow-lg overflow-hidden mt-28 mb-4">
         <div className="flex flex-row">
-          <div className="bg-light-blue w-3/5 px-6 py-8 text-white">
+          <div className="w-3/5 px-6 py-8 text-white">
             <h2 className="text-2xl font-bold mb-5 text-center">Signin</h2>
             {serverError && (
               <span className="mt-1 mb-1 p-2 text-white bg-red-500 font-medium block ml-0">
@@ -131,21 +128,6 @@ const Login = () => {
                   <Link to="/signup">Join now.</Link>
                 </span>
               </p>
-              <div className="mt-2 flex justify-center items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M20 10c0-.42-.04-.84-.1-1.25H10v2.5h5.57a2.68 2.68 0 0 1-1.16 1.75v1.45h1.88c1.1-1.02 1.74-2.5 1.74-4.15zm-10 2.5v-5h5.55c-.28.63-.77 1.16-1.37 1.5-.6.34-1.28.5-1.98.5-.7 0-1.38-.16-1.98-.5-.6-.34-1.09-.87-1.37-1.5H10v5z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <p>Log in with Google</p>
-              </div>
             </div>
           </div>
         </div>
